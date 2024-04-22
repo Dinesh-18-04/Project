@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Personal Details Form</title>
+<link rel="stylesheet" href="CSS.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Personal Details</h2>
+        <form id="myForm" onsubmit="return validateForm()">
+            <label for="name" class="head">Name:</label>
+            <input type="text" id="name"  onkeydown="return /[a-zA-Z]/i.test(event.key)">
+            <span id="nameError" class="error"></span>
+            
+            <label for="email" class="head">Email:</label>
+            <input type="email" id="email">
+            <span id="emailError" class="error"></span>
+            
+            <label for="phone" class="head">Phone Number:</label>
+            <input type="tel" id="phone" >
+            <span id="phoneError" class="error"></span>
+            
+            <label for="department" class="head">Department:</label>
+            <select id="department" >
+                <option value="">Select Department</option>
+                <option value="cse">CSE</option>
+                <option value="it">IT</option>
+                <option value="eee">EEE</option>
+                <option value="ece">ECE</option>
+                <option value="csd">CSD</option>
+            </select>
+            <span id="departmentError" class="error"></span>
+            
+            <label class="head">Gender:</label>
+            <label for="male">
+                <input type="radio" id="male" name="gender"> Male
+            </label>
+            <label for="female">
+                <input type="radio" id="female" name="gender"> Female
+            </label>
+            <label for="other">
+                <input type="radio" id="other" name="gender"> Other
+            </label>
+            <span id="genderError" class="error"></span>
+            
+            <label class="head">Programming Languages Known:</label>
+            <label for="java">
+                <input type="checkbox" id="java" name="languages"> Java
+            </label>
+            <label for="c++" >
+                <input type="checkbox" id="c++" name="languages"> C++
+            </label>
+            <label for="c">
+                <input type="checkbox" id="c" name="languages"> C
+            </label>
+            <label for="python">
+                <input type="checkbox" id="python" name="languages"> Python
+            </label>
+            <label for="javascript">
+                <input type="checkbox" id="javascript" name="languages"> JavaScript
+            </label>
+            <span id="languagesError" class="error"></span>
+            
+            <label for="address" class="head">Address:</label>
+            <textarea id="address" ></textarea>
+            <span id="AddressError" class="error"></span>
+            
+            <label for="dob" class="head">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+            <span id="DateError" class="error"></span> <br>
+            
+           <center> <input type="submit" value="Submit"></center>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var department = document.getElementById('department').value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var languages = document.querySelectorAll('input[name="languages"]:checked');
+            var address = document.getElementById('address').value;
+            var dob = document.getElementById('dob').value;
+            var isValid = true;
+            nameError.innerHTML = "";
+            emailError.innerHTML = "";
+            phoneError.innerHTML = "";
+            departmentError.innerHTML = "";
+            genderError.innerHTML = "";
+            languagesError.innerHTML = "";
+            if (name === "") {
+                nameError.innerHTML = "Name is required";
+                isValid = false;
+            }
+            if (email === "") {
+                emailError.innerHTML = "Email is required";
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                emailError.innerHTML = "Invalid email format";
+                isValid = false;
+            }
+            if (phone === "") {
+                phoneError.innerHTML = "Phone number is required";
+                isValid = false;
+            }
+            else if (!validatePhone(phone))
+            {
+                phoneError.innerHTML = "Invalid Phone Number Format";
+                isValid=false;
+            }
+            if (department === "") {
+                departmentError.innerHTML = "Please select a department";
+                isValid = false;
+            }
+            if (!gender) {
+                genderError.innerHTML = "Please select a gender";
+                isValid = false;
+            }
+            if (languages.length === 0) {
+                languagesError.innerHTML = "Please select at least one programming language";
+                isValid = false;
+            }
+            if (address === "") {
+                isValid = false;
+                AddressError.innerHTML = "Please enter the address";
+            }
+
+            if (dob === "") {
+                isValid = false;
+                DateError.innerHTML = "Please enter the DOB";
+            }
+
+            if (!isValid) {
+                alert("Please fill in all required fields");
+                return false;
+            }
+            alert("Form submitted successfully!");
+            return true; 
+        }
+    
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    
+        function validatePhone(phone) {
+            var re = /^\d{10}$/;
+            return re.test(phone);
+        }
+    </script>
+    
+</body>
+</html>
